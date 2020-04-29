@@ -1,4 +1,5 @@
 import json, requests
+import csv
 todos = []
 
 def get_todos():
@@ -7,22 +8,30 @@ def get_todos():
 
 def add_one_task(title):
     # your code here
+    todos.append(title)
+    return todos
     pass
 
 def print_list():
     # your code here
+    print(todos)
     pass
 
 def delete_task(number_to_delete):
     # your code here
+    if number_to_delete in todos:
+        todos.remove(number_to_delete)
+    else:
+        print(number_to_delete + " is not on the To Do list.")
+    return todos
     pass
 
 def initialize_todos():
     global todos
-    r = requests.get('https://assets.breatheco.de/apis/fake/todos/user/alesanchezr') 
+    r = requests.get('https://assets.breatheco.de/apis/fake/todos/user/GemmaMorales') 
     if(r.status_code == 404):
         print("No previous todos found, starting a new todolist")
-        r = requests.post(url = 'https://assets.breatheco.de/apis/fake/todos/user/alesanchezr', data = []) 
+        r = requests.post(url = 'https://assets.breatheco.de/apis/fake/todos/user/GemmaMorales', data = []) 
         if r.status_code == 200:
             print("Tasks initialized successfully")
     else:
@@ -32,10 +41,22 @@ def initialize_todos():
     
 def save_todos():
     # your code here
-    pass
+    myFile = open("todos.csv",'w+')
+    write = csv.writer(myFile, quoting=csv.QUOTE_NONE)
+    write.writerow(todos)
+    
 
 def load_todos():
     # your code here
+    global todos
+    try:
+        with open("todos.csv", newline='') as myFile:
+            reader = csv.reader(myFile)
+            for row in reader:
+                todos = row
+    except:
+        open("todos.csv", "w+")
+        load_todos()
     pass
     
 # Below this code will only run if the entry file running was app.py
