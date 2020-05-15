@@ -40,16 +40,17 @@ def initialize_todos():
 
     
 def save_todos():
-    # your code here
-    # myFile = open("todos.csv",'w+')
-    # write = csv.writer(myFile, quoting=csv.QUOTE_NONE)
-    # write.writerow(todos)
+    temp = json.dumps(todos)
+    r = requests.put(url = 'https://assets.breatheco.de/apis/fake/todos/user/gemma', headers = {"Content-Type":"application/json"}, data = temp)
+    print(r.json())
+    print(r)
+    pass
     
 
 def load_todos():
-    r = requests.get("https://assets.breatheco.de/apis/fake/todos/gemmamorales")
-    response = r.json() #or todos
-    print(response) #or todos
+    r = requests.get("https://assets.breatheco.de/apis/fake/todos/user/gemma")
+    todos = r.json() #or response
+    print(todos) #or response
     
 # Below this code will only run if the entry file running was app.py
 if __name__ == '__main__':
