@@ -8,22 +8,22 @@ def get_todos():
 
 def add_one_task(title):
     # your code here
-    todos.append(title)
-    return todos
+    # todos.append(title)
+    # return todos
     pass
 
 def print_list():
     # your code here
-    print(todos)
+    #print(todos)
     pass
 
 def delete_task(number_to_delete):
     # your code here
-    if number_to_delete in todos:
-        todos.remove(number_to_delete)
-    else:
-        print(number_to_delete + " is not on the To Do list.")
-    return todos
+    # if number_to_delete in todos:
+    #     todos.remove(number_to_delete)
+    # else:
+    #     print(number_to_delete + " is not on the To Do list.")
+    # return todos
     pass
 
 def initialize_todos():
@@ -41,23 +41,15 @@ def initialize_todos():
     
 def save_todos():
     # your code here
-    myFile = open("todos.csv",'w+')
-    write = csv.writer(myFile, quoting=csv.QUOTE_NONE)
-    write.writerow(todos)
+    # myFile = open("todos.csv",'w+')
+    # write = csv.writer(myFile, quoting=csv.QUOTE_NONE)
+    # write.writerow(todos)
     
 
 def load_todos():
-    # your code here
-    global todos
-    try:
-        with open("todos.csv", newline='') as myFile:
-            reader = csv.reader(myFile)
-            for row in reader:
-                todos = row
-    except:
-        open("todos.csv", "w+")
-        load_todos()
-    pass
+    r = requests.get("https://assets.breatheco.de/apis/fake/todos/gemmamorales")
+    response = r.json() #or todos
+    print(response) #or todos
     
 # Below this code will only run if the entry file running was app.py
 if __name__ == '__main__':
